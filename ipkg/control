@@ -1,0 +1,10 @@
+Package: mrdrillux
+Version: 20190217
+Description: Clone of Mr. Driller game
+Section: games
+Priority: optional
+Maintainer: jbanes
+Architecture: mipsel
+Homepage: https://github.com/jbanes/rs97-mrdrillux
+Depends:
+Source: https://github.com/jbanes/rs97-mrdrillux

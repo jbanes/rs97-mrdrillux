@@ -1,0 +1,21 @@
+#!/bin/sh
+
+OUTDIR=$1
+
+mkdir -p ipkg/home/retrofw/games/drill
+cp -R ${OUTDIR}/dist/* ipkg/home/retrofw/games/drill
+cp readme.txt ipkg/home/retrofw/games/drill/drill.man.txt
+mv ipkg/home/retrofw/games/drill/icon.png ipkg/home/retrofw/games/drill/drill.png
+
+cd ipkg
+
+tar -czvf control.tar.gz control
+tar -czvf data.tar.gz home
+ar rv mrdrillux.ipk control.tar.gz data.tar.gz debian-binary
+
+cd ..
+
+mv ipkg/mrdrillux.ipk output/
+rm ipkg/control.tar.gz
+rm ipkg/data.tar.gz
+rm -R ipkg/home/retrofw/games/drill
