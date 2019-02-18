@@ -93,6 +93,7 @@ Added support for the X button completing the name entry screen (to match the in
 Added support for the B button exiting the high score screen (to match the instructions)
 Packaged in IPK distribution
 Added this translated file as a manual
+Fixed a layout issue with the high score table where spaces were not being rendered
 
 2000/11/9 ver 0.05
 

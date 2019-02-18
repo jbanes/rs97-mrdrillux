@@ -31,8 +31,11 @@ SDL_CONFIG:=sdl-config
 CFLAGS+=$(shell $(SDL_CONFIG) --cflags)
 LDFLAGS+=$(shell $(SDL_CONFIG) --libs)
 LDFLAGS+=-lSDL_mixer
+#LDFLAGS+=-lgcov --coverage
 
 CFLAGS+=-DTILE_SIZE=$(RES)
+#CFLAGS+=-fprofile-generate=/home/retrofw/profile
+CFLAGS+=-fprofile-use -fprofile-dir=profile
 
 OUTDIR:=output/$(PLATFORM)
 

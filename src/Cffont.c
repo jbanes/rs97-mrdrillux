@@ -101,6 +101,6 @@ void CffontBlitxy(Cffont *this,char *string,SDL_Surface *surf,int x,int y){
 	for (; *string; string++) {
 		SDL_Rect *psrc = &this->fontarea[(unsigned int)*string];
 		SDL_BlitSurface(this->font, psrc, surf, &dest);
-		dest.x += dest.w;
+		dest.x += (dest.w > psrc->w) ? dest.w : psrc->w;
 	}
 }
