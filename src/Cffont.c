@@ -98,9 +98,14 @@ void CffontFree(Cffont *this){
 
 void CffontBlitxy(Cffont *this,char *string,SDL_Surface *surf,int x,int y){
 	SDL_Rect dest = { x, y, this->width, this->height };
+        
 	for (; *string; string++) {
 		SDL_Rect *psrc = &this->fontarea[(unsigned int)*string];
-		SDL_BlitSurface(this->font, psrc, surf, &dest);
-		dest.x += (dest.w > psrc->w) ? dest.w : psrc->w;
+                int width =  (dest.w > psrc->w) ? dest.w : psrc->w;
+                
+		if(dest.x + width > 0) SDL_BlitSurface(this->font, psrc, surf, &dest);
+                if(dest.w > 0) width = dest.w;
+                
+                dest.x += width;
 	}
 }
