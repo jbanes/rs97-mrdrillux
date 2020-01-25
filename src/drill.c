@@ -21,6 +21,8 @@ coding is restarted from 2000/8/28
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <time.h>
 
 CWavs *wavs;
@@ -2442,11 +2444,51 @@ void THighScoreAdd(THighScore *p,char *name,int time,int depth,int score){
 
 }
 
+int THighScoreExists(char *path)
+{
+    struct stat fileinfo;
+    
+    return (stat(path, &fileinfo) == 0);
+}
+
+char* THighScoreGetScorePath(char *subpath)
+{
+    int length = strlen(getenv("HOME")) + strlen(".driller") + strlen(subpath) + 2; // Account for the / and the \0
+    char * path = (char *) malloc(length * sizeof (char));
+    
+    sprintf(path, "%s/.driller/%s", getenv("HOME"), subpath);
+    
+    return path;
+}
+
+char* THighScoreGetHomePath(char *subpath)
+{
+    int length = strlen(getenv("HOME")) + strlen(subpath) + 2; // Account for the / and the \0
+    char * path = (char *) malloc(length * sizeof (char));
+    
+    sprintf(path, "%s/%s", getenv("HOME"), subpath);
+    
+    return path;
+}
+
+int THighScoreExistsInHome(char *subpath)
+{
+    char *path = THighScoreGetHomePath(subpath);
+    int result = THighScoreExists(path);
+    
+    free(path);
+    
+    return result;
+}
+
 int THighScoreSave(THighScore *p,char *filename){
 
 	FILE *fp;
 	int i;
 
+	if(!THighScoreExistsInHome(".driller")) mkdir(THighScoreGetHomePath(".driller"), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+        
+	filename = THighScoreGetScorePath(filename);
 	fp=fopen(filename,"wb");
 	if(fp==NULL){
 		fprintf(stderr,"cant open %s",filename);
@@ -2475,7 +2517,10 @@ int THighScoreLoad(THighScore *p,char *filename){
 		{100,90,80,70,60,50,40,30,20,10,0},
 		{100,90,80,70,60,50,40,30,20,10,0}
 	};
-
+        
+	if(!THighScoreExistsInHome(".driller")) mkdir(THighScoreGetHomePath(".driller"), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	if(THighScoreExists(THighScoreGetScorePath(filename))) filename = THighScoreGetScorePath(filename);
+        
 	fp=fopen(filename,"rb");
 	if(fp==NULL){
 		printf("create new save file\n");

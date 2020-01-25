@@ -7,5 +7,6 @@ Type=Game
 StartupNotify=true
 Icon=drill
 Categories=games;
+Version=20200125
 
 X-OD-Manual=drill.man.txt
