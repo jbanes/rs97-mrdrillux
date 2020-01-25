@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Mr. Drillux
+Comment=Clone of Mr. Driller game
+Exec=drill.dge
+Terminal=false
+Type=Game
+StartupNotify=true
+Icon=drill
+Categories=games;
+
+X-OD-Manual=drill.man.txt

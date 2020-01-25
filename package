@@ -2,6 +2,7 @@
 
 OUTDIR=$1
 
+# IPK creation
 mkdir -p ipkg/home/retrofw/games/drill
 cp -R ${OUTDIR}/dist/* ipkg/home/retrofw/games/drill
 cp readme.txt ipkg/home/retrofw/games/drill/drill.man.txt
@@ -15,7 +16,18 @@ ar rv mrdrillux.ipk control.tar.gz data.tar.gz debian-binary
 
 cd ..
 
+# OPK creation
+mkdir opkg
+cp default.*.desktop opkg/
+cp -R ${OUTDIR}/dist/* opkg/
+cp readme.txt opkg/drill.man.txt # FIX ME
+cp opkg/drill.dge opkg/drill.mips
+mv opkg/icon.png opkg/drill.png
+mksquashfs opkg mrdrillux.opk -noappend -no-exports -no-xattrs
+
 mv ipkg/mrdrillux.ipk output/
+mv mrdrillux.opk output/
 rm ipkg/control.tar.gz
 rm ipkg/data.tar.gz
 rm -R ipkg/home/retrofw/games/drill
+rm -R opkg
