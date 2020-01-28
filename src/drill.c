@@ -2453,7 +2453,7 @@ int THighScoreExists(char *path)
 
 char* THighScoreGetScorePath(char *subpath)
 {
-    int length = strlen(getenv("HOME")) + strlen(".driller") + strlen(subpath) + 2; // Account for the / and the \0
+    int length = strlen(getenv("HOME")) + strlen(".driller") + strlen(subpath) + 3; // Account for the two / and the \0
     char * path = (char *) malloc(length * sizeof (char));
     
     sprintf(path, "%s/.driller/%s", getenv("HOME"), subpath);
