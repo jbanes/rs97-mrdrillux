@@ -39,10 +39,11 @@ void CInputUpdate(CInput *this,int disabled){
 	for(i=0;i<MAX_BUTTONS;++i)this->button[i]=0;
 	if(disabled)return;
 	if(this->joystick){
-		if(SDL_JoystickGetButton(this->joystick, 0) == SDL_PRESSED)this->button[BUTTON_0]=1;
-		if(SDL_JoystickGetButton(this->joystick, 1) == SDL_PRESSED)this->button[BUTTON_1]=1;
-		if(SDL_JoystickGetButton(this->joystick, 2) == SDL_PRESSED)this->button[BUTTON_2]=1;
-		if(SDL_JoystickGetButton(this->joystick, 3) == SDL_PRESSED)this->button[BUTTON_3]=1;
+		if(SDL_JoystickGetButton(this->joystick, 1) == SDL_PRESSED)this->button[BUTTON_0]=1;    // A
+		if(SDL_JoystickGetButton(this->joystick, 5) == SDL_PRESSED)this->button[BUTTON_1]=1;    // R
+		if(SDL_JoystickGetButton(this->joystick, 0) == SDL_PRESSED)this->button[BUTTON_2]=1;    // X
+		if(SDL_JoystickGetButton(this->joystick, 3) == SDL_PRESSED)this->button[BUTTON_3]=1;    // Y
+		if(SDL_JoystickGetButton(this->joystick, 2) == SDL_PRESSED)this->button[BUTTON_4]=1;    // B
 		if((int)SDL_JoystickGetAxis(this->joystick, 1) < -this->min_axis)this->button[BUTTON_UP]=1;
 		if((int)SDL_JoystickGetAxis(this->joystick, 1) > this->min_axis)this->button[BUTTON_DOWN]=1;
 		if((int)SDL_JoystickGetAxis(this->joystick, 0) > this->min_axis)this->button[BUTTON_RIGHT]=1;
